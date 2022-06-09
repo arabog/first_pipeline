@@ -42,6 +42,17 @@ jobs:
           name: "Print world"
           command: "echo World!"
 
+  print_name:
+    docker:
+      - image: cimg/base:stable
+        environment:
+          MY_NAME: "Babatunde" 
+    steps:
+      - checkout
+      - run:
+          name: "Print name"
+          command: echo $MY_NAME
+
 workflows:
   say-hello-workflow:
     jobs:
@@ -49,7 +60,10 @@ workflows:
       - say-hello
       - print_hello
       - print_world
+      - print_name
       require: 
         - say-hello
       require: 
         - print_hello
+      require: 
+        - print_world
